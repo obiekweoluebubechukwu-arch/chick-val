@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.about-hero{
+    height: 50vh;
+    background: url("https://images.unsplash.com/photo-1505691938895-1758d7feb511") center/cover;
+    position: relative;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.about-hero .overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.about-hero h1,
+.about-hero p{
+    position: relative;
+    z-index: 1;
+}
+
+/* Content Section */
+.about-content{
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.box{
+    margin-bottom: 40px;
+}
+
+.box h2{
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.box p{
+    line-height: 1.7;
+    color: #555;
+}
+
+.box ul{
+    list-style: none;
+}
+
+.box ul li{
+    margin: 8px 0;
+    color: #444;
+}
+
+/* CTA Section */
+.cta{
+    background: #111;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.btn{
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn:hover{
+    background: gold;
+    transform: scale(1.05);
+}

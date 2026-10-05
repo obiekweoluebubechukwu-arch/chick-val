@@ -1,0 +1,130 @@
+/* Reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Landing Page Background */
+.hero{
+    height: 100vh;
+    background: url("https://images.unsplash.com/photo-1557683304-673a23048d34") center/cover;
+    position: relative;
+    color: white;
+}
+
+/* Light overlay for clarity */
+.hero .overlay{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Navigation */
+nav{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    z-index: 2;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Hero Content */
+.hero-content{
+    position: relative;
+    z-index: 2;
+    top: 35%;
+    text-align: center;
+    width: 100%;
+}
+
+/* Image-filled H1 */
+.image-text{
+    font-size: 3rem;
+    background: url("https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f") center/cover;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 900;
+}
+
+/* Buttons */
+.buttons{
+    margin-top: 20px;
+}
+
+.btn{
+    text-decoration: none;
+    background: #ffffff;
+    color: black;
+    padding: 12px 25px;
+    border-radius: 6px;
+    margin: 10px;
+    display: inline-block;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+/* Hover Effect */
+.btn:hover{
+    background: #ffd700;
+    transform: scale(1.05);
+}
+
+.btn-outline{
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-outline:hover{
+    background: white;
+    color: black;
+}
+
+/* Product Section */
+.products{
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.products .grid{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.item{
+    padding: 40px 10px;
+    background: #f3f3f3;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* About Section */
+.about{
+    padding: 60px 30px;
+    text-align: center;
+}
+
+/* Footer */
+footer{
+    background: #111;
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
