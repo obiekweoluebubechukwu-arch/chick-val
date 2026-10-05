@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>THE FLOCK — Chicken Showcase</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: [
+                            "Georgia",
+                            "serif"
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="m-0 overflow-hidden bg-[#eee9df] text-[#171512]">
+
+<!-- =========================================================
+     INTRO SCREEN
+========================================================= -->
+
+<section
+    id="intro"
+    class="relative flex h-screen w-full cursor-pointer items-end overflow-hidden"
+>
+
+    <!-- Background chicken -->
+    <img
+        src="images/chicken1.png"
+        alt="Chicken"
+        id="introChicken"
+        class="pointer-events-none absolute inset-0 h-full w-full object-cover scale-110"
+        style="animation: introImage 2.4s ease-out forwards;"
+    >
+
+    <!-- Dark overlay -->
+    <div
+        class="absolute inset-0 bg-gradient-to-t
+               from-black/80
+               via-black/30
+               to-black/10"
+    ></div>
+
+
+    <!-- INTRO CONTENT -->
+    <div
+        class="relative z-10 max-w-2xl px-7 pb-16 text-white
+               sm:px-14 sm:pb-20"
+    >
+
+        <p
+            class="mb-4 translate-y-10 animate-[rise_.9s_ease-out_forwards]
+                   text-xs uppercase tracking-[0.5em] text-white/70"
+        >
+            A LITTLE DIFFERENT
+        </p>
+
+
+        <h1
+            class="font-display text-6xl leading-[0.85]
+                   tracking-[-0.05em]
+                   sm:text-8xl"
+        >
+
+            <span
+                class="block translate-y-10 opacity-0
+                       animate-[rise_.9s_.2s_ease-out_forwards]"
+            >
+                MEET
+            </span>
+
+            <span
+                class="block translate-y-10 font-light italic opacity-0
+                       animate-[rise_.9s_.4s_ease-out_forwards]"
+            >
+                THE FLOCK.
+            </span>
+
+        </h1>
+
+
+        <p
+            class="mt-7 max-w-md translate-y-10 text-sm leading-6
+                   text-white/75 opacity-0
+                   animate-[rise_.9s_.6s_ease-out_forwards]"
+        >
+            Forget ordinary chicken.
+            Explore different breeds, personalities and styles
+            in an interactive collection.
+        </p>
+
+
+        <div
+            class="mt-9 flex items-center gap-4 text-sm font-semibold
+                   tracking-[0.25em] opacity-0
+                   animate-[rise_.9s_.8s_ease-out_forwards]"
+        >
+
+            <span>
+                ENTER THE FLOCK
+            </span>
+
+            <span
+                class="animate-bounce text-2xl"
+            >
+                ↓
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CHICKEN GALLERY
+========================================================= -->
+
+<section
+    id="gallery"
+    class="hidden h-screen w-full overflow-hidden
+           bg-[#eee9df] px-5 py-6 sm:px-10"
+>
+
+
+    <!-- HEADER -->
+
+    <header
+        class="relative z-50 flex items-start justify-between"
+    >
+
+        <div>
+
+            <p
+                class="text-[10px] font-bold uppercase
+                       tracking-[0.4em] text-black/40"
+            >
+                CHICKEN COLLECTION
+            </p>
+
+            <h2
+                id="breedName"
+                class="mt-2 font-display text-3xl
+                       sm:text-4xl"
+            >
+                Golden Hen
+            </h2>
+
+        </div>
+
+
+        <button
+            id="backButton"
+            class="rounded-full border border-black/15
+                   px-5 py-2 text-xs font-bold
+                   tracking-widest transition
+                   hover:bg-black hover:text-white"
+        >
+            BACK
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         CHICKEN STAGE
+    ====================================================== -->
+
+    <main
+        id="stage"
+        class="relative mx-auto mt-2 h-[58vh]
+               max-w-6xl touch-pan-y cursor-grab
+               active:cursor-grabbing"
+    >
+
+        <!-- Dynamic chicken background.
+             Kept neutral for now so the transparent chicken stays the focus.
+             Later this can be changed per chicken after reviewing its colors. -->
+        <div
+            id="chickenBackground"
+            class="pointer-events-none absolute inset-0 -z-0 rounded-[2rem]
+                   bg-[#eee9df] transition-all duration-700"
+        ></div>
+
+        <!-- Ground shadow -->
+
+        <div
+            class="absolute left-1/2 top-[72%]
+                   h-10 w-[45%]
+                   -translate-x-1/2
+                   rounded-[50%]
+                   bg-black/15
+                   blur-2xl"
+        ></div>
+
+
+        <!-- Chicken cards -->
+
+        <div
+            id="chickenContainer"
+            class="absolute inset-0 z-10"
+        ></div>
+
+
+        <!-- Swipe instruction -->
+
+        <div
+            class="pointer-events-none absolute
+                   bottom-2 left-1/2
+                   -translate-x-1/2
+                   whitespace-nowrap
+                   text-[9px]
+                   uppercase
+                   tracking-[0.4em]
+                   text-black/35"
+        >
+            SWIPE / DRAG
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         BOTTOM INFORMATION
+    ====================================================== -->
+
+    <footer
+        class="relative z-50 mx-auto flex max-w-6xl
+               items-end justify-between gap-5
+               border-t border-black/10 pt-5"
+    >
+
+        <div class="max-w-sm">
+
+            <p
+                id="breedMeta"
+                class="text-[10px] uppercase
+                       tracking-[0.25em] text-black/45"
+            >
+                Warm brown • calm • farm classic
+            </p>
+
+            <p
+                id="breedDescription"
+                class="mt-2 text-sm leading-5 text-black/60"
+            >
+                A rich golden-brown bird with a classic
+                farmyard appearance.
+            </p>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="flex items-center gap-2">
+
+            <button
+                id="previous"
+                class="grid h-12 w-12 place-items-center
+                       rounded-full border border-black/15
+                       text-xl transition
+                       hover:bg-black hover:text-white"
+            >
+                ←
+            </button>
+
+
+            <button
+                id="next"
+                class="grid h-12 w-12 place-items-center
+                       rounded-full bg-black
+                       text-xl text-white transition
+                       hover:scale-110"
+            >
+                →
+            </button>
+
+
+            <button
+                id="orderButton"
+                class="hidden rounded-full
+                       bg-[#b54427]
+                       px-6 py-3
+                       text-xs font-bold
+                       tracking-widest
+                       text-white
+                       transition
+                       hover:scale-105
+                       sm:block"
+            >
+                ORDER NOW
+            </button>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ORDER MESSAGE -->
+
+    <div
+        id="orderMessage"
+        class="pointer-events-none
+               absolute bottom-8 left-1/2
+               -translate-x-1/2
+               rounded-full
+               bg-black px-6 py-3
+               text-xs text-white
+               opacity-0
+               transition-opacity"
+    >
+        ORDER FEATURE READY
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+const intro = document.getElementById("intro");
+
+const gallery = document.getElementById("gallery");
+
+const container =
+    document.getElementById("chickenContainer");
+
+const stage =
+    document.getElementById("stage");
+
+const chickenBackground =
+    document.getElementById("chickenBackground");
+
+const breedName =
+    document.getElementById("breedName");
+
+const breedMeta =
+    document.getElementById("breedMeta");
+
+const breedDescription =
+    document.getElementById("breedDescription");
+
+const nextButton =
+    document.getElementById("next");
+
+const previousButton =
+    document.getElementById("previous");
+
+const backButton =
+    document.getElementById("backButton");
+
+const orderButton =
+    document.getElementById("orderButton");
+
+const orderMessage =
+    document.getElementById("orderMessage");
+
+
+
+/* =========================================================
+   CHICKENS
+========================================================= */
+
+const chickens = [
+
+    {
+        name: "Chicken 02",
+        meta: "Dark plumage • sleek • striking",
+        description: "A dark, elegant chicken with a clean silhouette.",
+        image: "images/chicken2.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 03",
+        meta: "Speckled plumage • warm • patterned",
+        description: "A richly patterned bird with warm, natural tones.",
+        image: "images/chicken3.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 04",
+        meta: "Light neck • brown body • natural",
+        description: "A distinctive bird with contrasting light and warm brown feathers.",
+        image: "images/chicken4.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 05",
+        meta: "Black and white • proud • dramatic",
+        description: "A striking rooster with bold dark plumage and a bright comb.",
+        image: "images/chicken5.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 06",
+        meta: "Golden orange • bright • elegant",
+        description: "A vivid orange-gold bird with an unmistakable silhouette.",
+        image: "images/chicken6.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 07",
+        meta: "Multicolored plumage • vivid • showy",
+        description: "A colorful rooster with long flowing tail feathers.",
+        image: "images/chicken7.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 08",
+        meta: "Warm brown • classic • natural",
+        description: "A warm-toned hen with a traditional farmyard appearance.",
+        image: "images/chicken8.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 09",
+        meta: "Soft gray • unusual • elegant",
+        description: "A soft gray bird with a distinctive upright stance.",
+        image: "images/chicken9.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 10",
+        meta: "Black and white • bold • proud",
+        description: "A dramatic black-and-white rooster with a strong silhouette.",
+        image: "images/chicken10.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 11",
+        meta: "Gray plumage • crested • unusual",
+        description: "A distinctive gray chicken with a pronounced feathered crest.",
+        image: "images/chicken11.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 12",
+        meta: "Soft gray • fluffy • calm",
+        description: "A rounded gray bird with soft, abundant plumage.",
+        image: "images/chicken12.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 13",
+        meta: "Barred plumage • classic • confident",
+        description: "A neatly patterned bird with a strong barred feather pattern.",
+        image: "images/chicken13.png",
+        background: "#eee9df"
+    },
+
+    {
+        name: "Chicken 14",
+        meta: "Black and white • spotted • distinctive",
+        description: "A boldly spotted bird that closes out the collection.",
+        image: "images/chicken14.png",
+        background: "#eee9df"
+    }
+
+];
+
+
+
+/* =========================================================
+   CURRENT CHICKEN
+========================================================= */
+
+let currentIndex = 0;
+
+
+
+/* =========================================================
+   RENDER CHICKENS
+========================================================= */
+
+function renderChickens() {
+
+    container.innerHTML = "";
+
+    for (let offset = -2; offset <= 2; offset++) {
+
+        const index =
+            (currentIndex + offset + chickens.length)
+            % chickens.length;
+
+        const chicken =
+            chickens[index];
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "absolute left-1/2 top-1/2 " +
+            "-translate-x-1/2 -translate-y-1/2 " +
+            "transition-all duration-700 " +
+            "ease-[cubic-bezier(.22,.75,.2,1)]";
+
+
+        let x = offset * 260;
+
+        let scale = 0.35;
+
+        let opacity = 0.12;
+
+        let blur = 2;
+
+        let zIndex = 1;
+
+
+        /* CENTER */
+
+        if (offset === 0) {
+
+            scale = 1;
+
+            opacity = 1;
+
+            blur = 0;
+
+            zIndex = 10;
+
+        }
+
+
+        /* SIDES */
+
+        else if (
+            offset === 1 ||
+            offset === -1
+        ) {
+
+            scale = 0.62;
+
+            opacity = 0.5;
+
+            blur = 1;
+
+            zIndex = 5;
+
+        }
+
+
+        card.style.transform =
+            `translate(calc(-50% + ${x}px), -50%)
+             scale(${scale})`;
+
+        card.style.opacity =
+            opacity;
+
+        card.style.filter =
+            `blur(${blur}px)`;
+
+        card.style.zIndex =
+            zIndex;
+
+
+        card.innerHTML = `
+
+            <div
+                class="relative
+                       h-[430px]
+                       w-[280px]
+                       sm:h-[500px]
+                       sm:w-[350px]"
+            >
+
+                <!-- Ground shadow -->
+
+                <div
+                    class="absolute bottom-[13%]
+                           left-1/2 z-10
+                           h-7 w-[60%]
+                           -translate-x-1/2
+                           rounded-[50%]
+                           bg-black/10
+                           blur-xl"
+                ></div>
+
+
+                <!-- Chicken -->
+
+                <img
+                    src="${chicken.image}"
+                    alt="${chicken.name}"
+                    draggable="false"
+                    class="relative z-20
+                           h-full w-full
+                           object-contain
+                           drop-shadow-[0_25px_25px_rgba(0,0,0,.18)]"
+                >
+
+
+                <!-- Name -->
+
+                <div
+                    class="absolute
+                           bottom-0
+                           left-1/2
+                           -translate-x-1/2
+                           text-center
+                           whitespace-nowrap"
+                >
+
+                    <p
+                        class="font-display
+                               text-xl
+                               font-semibold"
+                    >
+                        ${chicken.name}
+                    </p>
+
+                    <p
+                        class="mt-1
+                               text-[9px]
+                               uppercase
+                               tracking-[0.3em]
+                               text-black/40"
+                    >
+                        ${String(index + 1).padStart(2, "0")}
+                        /
+                        ${chickens.length}
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    }
+
+
+    /* UPDATE INFORMATION */
+
+    breedName.textContent =
+        chickens[currentIndex].name;
+
+    breedMeta.textContent =
+        chickens[currentIndex].meta;
+
+    breedDescription.textContent =
+        chickens[currentIndex].description;
+
+    // Keep the background neutral for now. Once we inspect the actual
+    // transparent chicken images, each chicken can get its own background.
+    chickenBackground.style.background = chickens[currentIndex].background;
+
+}
+
+
+
+/* =========================================================
+   NEXT / PREVIOUS
+========================================================= */
+
+function nextChicken() {
+
+    currentIndex =
+        (currentIndex + 1)
+        % chickens.length;
+
+    renderChickens();
+
+}
+
+
+function previousChicken() {
+
+    currentIndex =
+        (currentIndex - 1 + chickens.length)
+        % chickens.length;
+
+    renderChickens();
+
+}
+
+
+
+nextButton.addEventListener(
+    "click",
+    nextChicken
+);
+
+
+previousButton.addEventListener(
+    "click",
+    previousChicken
+);
+
+
+
+/* =========================================================
+   ENTER WEBSITE
+========================================================= */
+
+intro.addEventListener(
+    "click",
+    () => {
+
+        intro.classList.add("hidden");
+
+        gallery.classList.remove("hidden");
+
+        renderChickens();
+
+    }
+);
+
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+backButton.addEventListener(
+    "click",
+    () => {
+
+        gallery.classList.add("hidden");
+
+        intro.classList.remove("hidden");
+
+    }
+);
+
+
+
+/* =========================================================
+   ORDER BUTTON
+========================================================= */
+
+orderButton.addEventListener(
+    "click",
+    () => {
+
+        orderMessage.classList.remove(
+            "opacity-0"
+        );
+
+        setTimeout(
+            () => {
+
+                orderMessage.classList.add(
+                    "opacity-0"
+                );
+
+            },
+            1800
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   SWIPE / DRAG
+========================================================= */
+
+let startX = 0;
+
+let dragging = false;
+
+
+stage.addEventListener(
+    "pointerdown",
+    (event) => {
+
+        dragging = true;
+
+        startX =
+            event.clientX;
+
+        stage.setPointerCapture(
+            event.pointerId
+        );
+
+    }
+);
+
+
+stage.addEventListener(
+    "pointerup",
+    (event) => {
+
+        if (!dragging)
+            return;
+
+        dragging = false;
+
+
+        const distance =
+            event.clientX - startX;
+
+
+        /* Swipe LEFT */
+
+        if (distance < -60) {
+
+            nextChicken();
+
+        }
+
+
+        /* Swipe RIGHT */
+
+        else if (distance > 60) {
+
+            previousChicken();
+
+        }
+
+    }
+);
+
+
+stage.addEventListener(
+    "pointercancel",
+    () => {
+
+        dragging = false;
+
+    }
+);
+
+
+
+/* =========================================================
+   KEYBOARD SUPPORT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            gallery.classList.contains("hidden")
+        )
+            return;
+
+
+        if (event.key === "ArrowRight") {
+
+            nextChicken();
+
+        }
+
+
+        if (event.key === "ArrowLeft") {
+
+            previousChicken();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+renderChickens();
+
+</script>
+
+
+<!-- =========================================================
+     CUSTOM ANIMATION
+========================================================= -->
+
+<style>
+
+@keyframes introImage {
+    0% {
+        filter: blur(0px) brightness(1.15) saturate(1.05);
+        transform: scale(1.02);
+    }
+    45% {
+        filter: blur(3px) brightness(0.9) saturate(1);
+        transform: scale(1.06);
+    }
+    100% {
+        filter: blur(9px) brightness(0.62) saturate(0.9);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes rise {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(45px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+</style>
+
+</body>
+</html>
